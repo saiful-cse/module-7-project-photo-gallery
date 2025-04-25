@@ -1,8 +1,10 @@
 <?php
+//Include header file and add config file.
 include_once 'includes/header.php';
 
 $error = '';
 $success = '';
+//Check method 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $title = $_POST['title'];
     $description = $_POST['description'];
@@ -22,11 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         $target_file = $target_dir . $new_name;
 
-
+        //Check image size, limit 5 MB
         if ($image['size'] > 5000000) {
             $error = 'File size is too large. Max size is 5MB';
         } else {
 
+            //Image move to assets folder
             if (move_uploaded_file($image['tmp_name'], $target_file)) {
                 $sql = "INSERT INTO images (title, description, filename) VALUES (:title, :description, :filename)";
                 $stmt = $pdo->prepare($sql);
@@ -53,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <h1>Photo Gallery</h1>
 </div>
 
+<!-- Warnign show in alert view -->
 <?php if ($success): ?>
     <div class="alert alert-success" role="alert">
         <?php echo $success; ?>
@@ -65,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </div>
 <?php endif; ?>
 
-
+<!-- Divdied by row -->
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -90,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </div>
 </div>
 
+<!-- Include footer -->
 <?php
 include_once 'includes/footer.php';
 ?>

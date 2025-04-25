@@ -1,4 +1,5 @@
 <?php
+//Include header file and add config file.
 include 'includes/header.php';
 
 $sql = "SELECT * FROM images ORDER BY upload_date DESC";
@@ -12,14 +13,13 @@ $images = $stmt->fetchAll();
 <div class="my-4">
     <h1>Photo Gallery</h1>
 </div>
-
-
 <div class="row">
 
     <?php
     if (count($images) > 0) {
         foreach ($images as $image) {
     ?>
+            <!-- image show add 10px space between image -->
             <div class="card" style="width: 18rem; margin: 10px;">
                 <img src="assets/images/<?php echo $image['filename'] ?>" class="card-img" alt="...">
                 <div class="card-body">
@@ -32,7 +32,7 @@ $images = $stmt->fetchAll();
         <?php
         }
     } else { ?>
-
+        <!-- Set warnig if not found any image. -->
         <div class="alert alert-info" role="alert">
             No images found.
         </div>
